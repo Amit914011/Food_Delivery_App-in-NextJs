@@ -13,7 +13,7 @@ function RestaurantHeader() {
       setUser(null);
       setIsProfileOpen(false);
     } else {
-      setUser({ name: "Amit Kumar" });
+      setUser({ name: "Amit Maurya" });
     }
   };
   const menuVariants = {

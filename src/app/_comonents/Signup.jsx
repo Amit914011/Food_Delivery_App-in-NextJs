@@ -12,6 +12,9 @@ import {
   FaLock,
   FaHamburger
 } from "react-icons/fa";
+import { addRestaurantUserAPI } from "../service/RestaurantUser";
+import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 function Signup() {
   const {
@@ -23,12 +26,20 @@ function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
+  const [isLoading,setIsLoading]=useState(false)
 
   const password = watch("password");
-
-  const onSubmit = (data) => {
-    console.log("Signup Data:", data);
-    // Send data to backend
+  const onSubmit =async (data) => {
+    // console.log("Signup Data:", data);
+    try {
+      setIsLoading(true)
+     const response=await addRestaurantUserAPI(data)
+     toast.success(response?.data?.message)
+    } catch (error) {
+      console.log("Restaurant Signup Faild..",error.message)
+      toast.error(error?.response?.data?.error)
+    }
+    setIsLoading(false)
   };
 
   return (
@@ -187,9 +198,10 @@ function Signup() {
           <div className="md:col-span-2">
             <button
               type="submit"
-              className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-200"
+              className={`w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-200 ${isLoading?"cursor-not-allowed":"cursor-pointer"}`}
+              disabled={isLoading}
             >
-              Signup
+              {isLoading ?(<Loader title="Loading..."/>):"Signup"}
             </button>
           </div>
         </form>

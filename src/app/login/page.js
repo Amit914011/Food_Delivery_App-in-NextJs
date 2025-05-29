@@ -1,5 +1,7 @@
+import dbconnection from "../lib/dbConnection";
 import Loginpage from "./Loginpage";
 
+dbconnection()
 export const metadata={
     title:"Login : Food Delivery App"
 }

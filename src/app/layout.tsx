@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import dbconnection from "./lib/dbConnection";
+import { Flip, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import ScrollToTop from './_comonents/ScrollToTop'
 
+dbconnection();
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,6 +32,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ToastContainer
+          position="bottom-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Flip}
+          toastClassName="custom-gradient-toast"
+        />
+        <ScrollToTop/>
         {children}
       </body>
     </html>

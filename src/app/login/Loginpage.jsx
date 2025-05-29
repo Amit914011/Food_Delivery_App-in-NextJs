@@ -4,12 +4,13 @@ import Login from "../_comonents/Login";
 import Signup from "../_comonents/Signup";
 import RestaurantHeader from "../_comonents/RestaurantHeader";
 import RestaurantFooter from "../_comonents/RestaurantFooter";
-
+import ScrollToTop from '../_comonents/ScrollToTop'
 const Loginpage = () => {
   const [showLogin, setShowLogin] = useState(true);
 
   return (
     <div className=" flex flex-col items-center justify-center">
+      <ScrollToTop/>
       <RestaurantHeader/>
       <h1 className="text-4xl md:text-5xl font-extrabold text-center text-indigo-700 mb-10 drop-shadow-md">
         Restaurant Login / Signup
