@@ -1,7 +1,7 @@
 // app/api/restaurant/route.js
 import { NextResponse } from "next/server";
-import dbconnection  from "../../lib/dbConnection"; // Create this if not present
-import RestaurantUser  from "../../models/restaurantsUserModel";
+import dbconnection  from "../../../lib/dbConnection"; // Create this if not present
+import RestaurantUser  from "../../../models/restaurantsUserModel";
 
 export async function POST(request) {
   await dbconnection(); // Connect to MongoDB

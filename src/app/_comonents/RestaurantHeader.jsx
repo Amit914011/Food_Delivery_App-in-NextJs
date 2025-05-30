@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 function RestaurantHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null); // null = not logged in
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     const data = localStorage.getItem("restaurantUser");
@@ -16,6 +17,9 @@ function RestaurantHeader() {
         const parsedUser = JSON.parse(data);
         if (parsedUser?.name) {
           setUser(parsedUser);
+          if (pathName === "/restaurant") {
+            router.push("/restaurant/dashboard");
+          }
         } else {
           router.push("/restaurant"); // redirect to login if data invalid
         }
@@ -23,10 +27,16 @@ function RestaurantHeader() {
         console.error("Invalid JSON in localStorage", error);
         router.push("/restaurant");
       }
-    } else {
+    }else {
       router.push("/restaurant"); // redirect to login if no data
     }
-  }, [router]);
+  },[]);
+
+  const handleLogout=()=>{
+    localStorage.removeItem('restaurantUser')
+    router.push("/restaurant");
+
+  }
 
   const menuVariants = {
     hidden: {
@@ -71,7 +81,7 @@ function RestaurantHeader() {
               {user?.name.charAt(0)}
             </div>
             <p className="capitalize text-1xl font-semibold">{user?.name}</p>
-            <button className="bg-blue-950 text-white px-3 py-1 rounded cursor-pointer hover:bg-blue-800">
+            <button onClick={handleLogout} className="bg-blue-950 text-white px-3 py-1 rounded cursor-pointer hover:bg-blue-800">
               Logout
             </button>
           </div>
@@ -124,59 +134,60 @@ function RestaurantHeader() {
               variants={menuVariants}
               className="fixed top-0 left-0 h-full w-64 bg-white shadow-md px-6 py-6 space-y-6 text-left font-semibold text-indigo-700 z-50 flex flex-col justify-between"
             >
-             <div>
-               <a
-                href="#home"
-                className="block hover:text-orange-500 transition"
-                onClick={() => setIsOpen(false)}
-              >
-                Home
-              </a>
-              <a
-                href="#menu"
-                className="block hover:text-orange-500 transition"
-                onClick={() => setIsOpen(false)}
-              >
-                Menu
-              </a>
-              <a
-                href="#about"
-                className="block hover:text-orange-500 transition"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </a>
-              <a
-                href="#contact"
-                className="block hover:text-orange-500 transition"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </a>
-             </div>
-             <div>
-               {user?.name ? (
-          <div className="justify-center items-center gap-3 flex  md:hidden ">
-            <div className="w-8 h-8 rounded-full uppercase bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold">
-              {user?.name.charAt(0)}
-            </div>
-            <p className="capitalize text-1xl font-semibold">{user?.name}</p>
-            <button className="bg-blue-950 text-white px-3 py-1 rounded cursor-pointer hover:bg-blue-800">
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div className="md:hidden">
-            <Link
-              href="/restaurant"
-              className="bg-blue-950 text-white px-3 py-1 rounded cursor-pointer hover:bg-blue-800"
-            >
-              Login
-            </Link>
-          </div>
-        )}
-             </div>
-              
+              <div>
+                <a
+                  href="#home"
+                  className="block hover:text-orange-500 transition"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Home
+                </a>
+                <a
+                  href="#menu"
+                  className="block hover:text-orange-500 transition"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Menu
+                </a>
+                <a
+                  href="#about"
+                  className="block hover:text-orange-500 transition"
+                  onClick={() => setIsOpen(false)}
+                >
+                  About
+                </a>
+                <a
+                  href="#contact"
+                  className="block hover:text-orange-500 transition"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Contact
+                </a>
+              </div>
+              <div>
+                {user?.name ? (
+                  <div className="justify-center items-center gap-3 flex  md:hidden ">
+                    <div className="w-8 h-8 rounded-full uppercase bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold">
+                      {user?.name.charAt(0)}
+                    </div>
+                    <p className="capitalize text-1xl font-semibold">
+                      {user?.name}
+                    </p>
+                    <button onClick={handleLogout} className="bg-blue-950 text-white px-3 py-1 rounded cursor-pointer hover:bg-blue-800">
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <div className="md:hidden">
+                    <Link
+                      href="/restaurant"
+                      className="bg-blue-950 text-white px-3 py-1 rounded cursor-pointer hover:bg-blue-800"
+                    >
+                      Login
+                    </Link>
+                  </div>
+                )}
+              </div>
             </motion.nav>
           </>
         )}

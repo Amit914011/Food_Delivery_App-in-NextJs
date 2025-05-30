@@ -205,7 +205,7 @@ function Signup() {
               className={`w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-200 ${isLoading?"cursor-not-allowed":"cursor-pointer"}`}
               disabled={isLoading}
             >
-              {isLoading ?(<Loader title="Loading..."/>):"Signup"}
+              {isLoading ?(<Loader title="Processing signup request..."/>):"Signup"}
             </button>
           </div>
         </form>

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock } from "react-icons/fa";
+import { loginRestaurantUserAPI } from "../service/RestaurantUser";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import Loader from "./Loader";
+
 
 function Login() {
   const {
@@ -9,9 +14,23 @@ function Login() {
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading,setIsLoading]=useState(false)
+  const router=useRouter()
 
-  const onSubmit = (data) => {
-    console.log("Login Data:", data);
+  const onSubmit =async (data) => {
+    try {
+      setIsLoading(true)
+     const response=await loginRestaurantUserAPI(data)
+     toast.success(response?.data?.message)
+    //  console.log(response?.data?.message)
+    //  console.log(response?.data?.user)
+      localStorage.setItem('restaurantUser',JSON.stringify(response?.data?.user))
+      router.push('/restaurant/dashboard')
+    } catch (error) {
+      console.log('Server Error',error?.response?.data?.error)
+      toast.error(error?.response?.data?.error)
+    }
+    setIsLoading(false)
   };
 
   return (
@@ -70,9 +89,12 @@ function Login() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-md"
+            className={`w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-md ${isLoading?"cursor-not-allowed":"cursor-pointer"}`}
+            disabled={isLoading}
           >
-            Login
+           {
+            isLoading?<Loader title=" Verifying your credentials..."/>:"Login"
+           }
           </button>
         </form>
       </div>
