@@ -15,6 +15,7 @@ import {
 import { addRestaurantUserAPI } from "../service/RestaurantUser";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
+import { useRouter } from "next/navigation";
 
 function Signup() {
   const {
@@ -27,7 +28,7 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
   const [isLoading,setIsLoading]=useState(false)
-
+  const router = useRouter()
   const password = watch("password");
   const onSubmit =async (data) => {
     // console.log("Signup Data:", data);
@@ -35,6 +36,9 @@ function Signup() {
       setIsLoading(true)
      const response=await addRestaurantUserAPI(data)
      toast.success(response?.data?.message)
+     console.log(response)
+     localStorage.setItem("restaurantUser",JSON.stringify(response.data.restaurant.restaurantUserData))
+     router.push('/restaurant/dashboard')
     } catch (error) {
       console.log("Restaurant Signup Faild..",error.message)
       toast.error(error?.response?.data?.error)

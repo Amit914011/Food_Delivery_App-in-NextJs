@@ -48,9 +48,12 @@ export async function POST(request) {
   // === Save to DB ===
   const newRestaurant = new RestaurantUser({ name, restaurant, city, contact, email, type, address, password });
   await newRestaurant.save();
+  const restaurantUserData = await RestaurantUser
+  .findById(newRestaurant._id)
+  .select('-password');
 
   return NextResponse.json({
     message: "Registration successfully",
-    restaurant: { name, restaurant, email }
+    restaurant: { restaurantUserData }
   });
 }
