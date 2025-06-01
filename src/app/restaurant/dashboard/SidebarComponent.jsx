@@ -15,7 +15,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const menuItems = [
   { label: 'Home', icon: <FaHome />, href: '/restaurant/dashboard' },
   { label: 'Add Food', icon: <FaHamburger />, href: '/restaurant/dashboard/add-food' },
-  { label: 'Manage Foods', icon: <FaBoxOpen />, href: '/restaurant/dashboard/manage-foods' },
+  { label: 'See All Foods', icon: <FaBoxOpen />, href: '/restaurant/dashboard/all-foods' },
   { label: 'Orders', icon: <FaChartBar />, href: '/restaurant/dashboard/orders' },
   { label: 'Settings', icon: <FaCog />, href: '/restaurant/dashboard/settings' },
 ];
