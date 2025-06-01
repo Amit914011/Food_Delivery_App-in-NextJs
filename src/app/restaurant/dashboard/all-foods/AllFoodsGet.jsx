@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { deleteFoodDataAPI, getAllFoodDataAPI } from "../../../service/Foods";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const AllFoodsGet = () => {
   const [foods, setFoods] = useState([]);
@@ -55,9 +56,18 @@ const AllFoodsGet = () => {
   </div>):(
         <>
         <div className="p-6 min-h-screen bg-gray-50">
-     <h2 className="text-4xl sm:text-5xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-pink-500 to-red-500 mb-10 drop-shadow-md">
-  Explore Delicious Food Items
-</h2>
+     <div className="flex flex-col sm:flex-row items-center justify-between mb-10">
+  <h2 className="text-4xl sm:text-5xl font-extrabold text-center sm:text-left text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-pink-500 to-red-500 drop-shadow-md">
+    Explore Delicious Food Items
+  </h2>
+  <Link
+    href="/restaurant/dashboard/add-food"
+    className="mt-4 sm:mt-0 px-5 py-2 text-white bg-blue-950 hover:bg-blue-800 rounded-lg shadow transition duration-300"
+  >
+    + Add Food Item
+  </Link>
+</div>
+
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
