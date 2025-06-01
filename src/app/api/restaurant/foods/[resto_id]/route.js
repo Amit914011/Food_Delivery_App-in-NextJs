@@ -31,6 +31,6 @@ export async function DELETE(request,context) {
      const deleteFood=await food.deleteOne({_id:id})
      return NextResponse.json({message:"Food deleted successfull..",success:true,food:deleteFood},{status:200})
     } catch (error) {
-     return NextResponse.json({error:"Internal server error"},{status:500}) 
+     return NextResponse.json({error:"Internal server error",error},{status:500}) 
     }
 }
