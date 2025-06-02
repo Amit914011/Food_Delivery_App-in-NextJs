@@ -69,10 +69,8 @@ export default function AddFood() {
             }`}
             {...register("foodname", { required: "Food name is required" })}
           />
-          {errors.foodName && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.foodName.message}
-            </p>
+             {errors.foodname && (
+            <p className="text-red-500 text-sm mt-1">{errors.foodname.message}</p>
           )}
         </div>
 

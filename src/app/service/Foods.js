@@ -15,3 +15,16 @@ export async function deleteFoodDataAPI(food_id) {
      const result = await httpAxios.delete(`/api/restaurant/foods/${food_id}`).then((Response)=>Response.data)
     return result;
 }
+
+
+
+export async function getFoodDataByIdAPI(food_id) {
+    const result=await httpAxios.get(`/api/restaurant/foods/edit-item/${food_id}`).then((Response)=>Response.data)
+    return result;
+}
+
+
+export async function updateFoodItemAPI(food_id,data) {
+    const result = await httpAxios.put(`/api/restaurant/foods/edit-item/${food_id}`,data).then((Response)=>Response.data)
+    return result;
+}
