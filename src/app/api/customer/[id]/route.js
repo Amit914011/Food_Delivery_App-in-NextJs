@@ -3,7 +3,7 @@ import dbconnection from '../../../lib/dbConnection'
 import restaurantUser from '../../../models/restaurantsUserModel'
 import foods from '../../../models/foodsModel'
 
-export async function GET(requiest,context) {
+export async function GET(request,context) {
     // console.log(context.params.id)
     const {id}=context.params
     try {
