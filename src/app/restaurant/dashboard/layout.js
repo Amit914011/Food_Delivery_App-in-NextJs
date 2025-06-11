@@ -1,6 +1,4 @@
 'use client';
-
-import React from 'react';
 import RestaurantHeader from '../../_comonents/RestaurantHeader';
 import RestaurantFooter from '../../_comonents/RestaurantFooter';
 import SidebarComponent from './SidebarComponent';
